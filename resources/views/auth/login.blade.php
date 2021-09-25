@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -39,6 +40,15 @@
                             </div>
                         </div>
 
+                        <div class="form-group col-md-6 offset-md-4">
+                            @recaptcha
+                            @error('g-recaptcha-response')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{$message}}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
@@ -64,7 +74,15 @@
                                 @endif
                             </div>
                         </div>
+
                     </form>
+
+
+                        <div class="d-flex flex-column mt-3">
+                            <a href="{{route('auth.google')}}" class="btn btn-danger col-md-6 offset-md-4">Login With Google <i class="fab fa-google-plus-g"></i></a>
+                            <a href="{{route('auth.github')}}" class="btn btn-secondary mt-2 col-md-6 offset-md-4">Login With Github <i class="fab fa-github"></i></a>
+                        </div>
+
                 </div>
             </div>
         </div>
