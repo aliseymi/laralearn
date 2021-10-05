@@ -41,4 +41,8 @@ return [
         'client_secret' => env('GITHUB_SECRET_KEY'),
         'redirect' => env('GITHUB_CALLBACK_URL'),
     ],
+
+    'ghasedak' => [
+        'key' => env('GHASEDAK_API_KEY')
+    ],
 ];

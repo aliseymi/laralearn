@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\ActiveCode;
 use App\Models\User;
+use App\Notifications\ActiveCodeNotification;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
@@ -22,7 +24,7 @@ class ProfileController extends Controller
     {
         $data = $request->validate([
             'type' => 'required|in:sms,off',
-            'phone' => 'required_unless:type,off'
+            'phone' => ['required_unless:type,off',Rule::unique('users','phone_number')->ignore($request->user()->id)]
         ]);
 
         if($data['type'] === 'sms'){
@@ -31,6 +33,7 @@ class ProfileController extends Controller
                 // send to user mobile
                 $code = ActiveCode::generateCode($request->user());
                 $request->session()->flash('phone',$data['phone']);
+                $request->user()->notify(new ActiveCodeNotification($code,$data['phone']));
                 return redirect(route('profile.2fa.phone'));
             }else{
                 $request->user()->update([

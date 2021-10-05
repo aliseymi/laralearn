@@ -43,6 +43,7 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+
         return $this->loggedIn($request,$user);
     }
 
