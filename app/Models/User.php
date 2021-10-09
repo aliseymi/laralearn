@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPassword as ResetPasswordNotification;
+use App\Notifications\VerifyEmail as VerifyEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -44,6 +46,27 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification);
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
     public function activeCodes()
     {
         return $this->hasMany(ActiveCode::class);
@@ -57,5 +80,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hasTwoFactorAuthenticationEnabled()
     {
         return $this->two_factor_type !== 'off';
+    }
+
+    public function hasSmsTwoFactorAuthenticationEnabled()
+    {
+        return $this->two_factor_type == 'sms';
     }
 }

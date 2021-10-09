@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\ActiveCode;
 use App\Models\User;
+use App\Notifications\LoginToWebsite as LoginToWebsiteNotification;
 use Illuminate\Http\Request;
 
 class AuthTokenController extends Controller
@@ -39,6 +40,7 @@ class AuthTokenController extends Controller
 
         if(auth()->loginUsingId($user->id,$request->session()->get('auth.remember'))){
             $user->activeCodes()->delete();
+            $user->notify(new LoginToWebsiteNotification());
             alert()->success('You are logged in','successful');
             return redirect('/');
         }

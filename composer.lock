@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a172be67778f042455eda3e8ff67e26",
+    "content-hash": "d2a098d822d6640afeb1e2d38d6daf5f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -580,7 +580,7 @@
         },
         {
             "name": "ghasedak/php",
-            "version": "dev-master",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ghasedakapi/ghasedak-php.git",
@@ -595,7 +595,6 @@
             "require": {
                 "php": ">=5.4.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -8123,9 +8122,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "ghasedak/php": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

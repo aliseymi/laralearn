@@ -20,7 +20,7 @@ class GhasedakChannel
         try {
             $lineNumber = "30005006006528";
             $api = new \Ghasedak\GhasedakApi($api_key);
-            $api->SendSimple($receptor, $message, $lineNumber);
+            $api->SendSimple($receptor, $message,$lineNumber);
         } catch (\Ghasedak\Exceptions\ApiException $e) {
             throw $e;
         } catch (\Ghasedak\Exceptions\HttpException $e) {

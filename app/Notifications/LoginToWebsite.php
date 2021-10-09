@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class LoginToWebsiteNotification extends Notification
+class LoginToWebsite extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -42,7 +42,8 @@ class LoginToWebsiteNotification extends Notification
     {
         return (new MailMessage)
 //                ->view('emails.login-to-website')->subject('Hi,you\'re logged in')->from('ali@gmail.com','laralearn');
-                  ->line('Hi,Welcome')->action('Back To Site',url('/'))->line('Thanks');
+//                  ->line('Hi,Welcome')->action('Back To Site',url('/'))->line('Thanks');
+        ->subject('لارالرن: ایمیل ورود به سایت')->markdown('emails.login-to-website');
     }
 
     /**

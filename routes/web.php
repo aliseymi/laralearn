@@ -26,12 +26,12 @@ Route::get('/auth/google/callback',[\App\Http\Controllers\Auth\GoogleAuthControl
 Route::get('/auth/github',[\App\Http\Controllers\Auth\GithubAuthController::class,'redirect'])->name('auth.github');
 Route::get('/auth/github/callback',[\App\Http\Controllers\Auth\GithubAuthController::class,'callback']);
 
-Route::middleware('auth')->group(function (){
-    Route::get('profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('profile');
-    Route::get('profile/twofactor',[\App\Http\Controllers\ProfileController::class,'manageTwoFactor'])->name('profile.2fa.manage');
-    Route::post('profile/twofactor',[\App\Http\Controllers\ProfileController::class,'postTwoFactor']);
-    Route::get('profile/twofactor/phone',[\App\Http\Controllers\ProfileController::class,'getPhoneVerify'])->name('profile.2fa.phone');
-    Route::post('profile/twofactor/phone',[\App\Http\Controllers\ProfileController::class,'postPhoneVerify']);
+Route::prefix('profile')->middleware('auth')->group(function (){
+    Route::get('/',[\App\Http\Controllers\Profile\indexController::class,'index'])->name('profile');
+    Route::get('twofactor',[\App\Http\Controllers\Profile\twoFactorAuthController::class,'manageTwoFactor'])->name('profile.2fa.manage');
+    Route::post('twofactor',[\App\Http\Controllers\Profile\twoFactorAuthController::class,'postTwoFactor']);
+    Route::get('twofactor/phone',[\App\Http\Controllers\Profile\tokenAuthController::class,'getPhoneVerify'])->name('profile.2fa.phone');
+    Route::post('twofactor/phone',[\App\Http\Controllers\Profile\tokenAuthController::class,'postPhoneVerify']);
 });
 
 Route::get('auth/token',[\App\Http\Controllers\Auth\AuthTokenController::class,'getToken'])->name('2fa.token');
