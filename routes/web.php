@@ -13,7 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (\App\Services\FooService $fooService) {
+//    $container = new \App\Container();
+//    $container->bind('fooService', function (){
+//        return new \App\Services\FooService();
+//    });
+
+    dd($fooService->doSomething());
+
     return view('welcome');
 });
 
