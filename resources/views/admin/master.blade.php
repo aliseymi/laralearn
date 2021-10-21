@@ -88,5 +88,6 @@
 <!-- FastClick -->
 <script src="/plugins/fastclick/fastclick.js"></script>
 <script src="{{ asset('js/admin.js') }}"></script>
+@include('sweet::alert')
 </body>
 </html>
