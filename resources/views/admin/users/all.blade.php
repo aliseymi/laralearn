@@ -23,7 +23,7 @@
 
                         <div class="btn-group-sm">
                             <a href="{{ route('admin.users.create') }}" class="btn btn-info mr-1">افزودن کاربر<i class="fa fa-plus pr-1"></i></a>
-                            <a href="{{ request()->fullUrlWithoutQuery(['search','admin']) . '?admin=1' }}" class="btn btn-warning">کاربران ادمین<i class="fa fa-user pr-1"></i></a>
+                            <a href="{{ request()->fullUrlWithoutQuery(['search','admin','sort']) . '?admin=1' }}" class="btn btn-warning">کاربران ادمین<i class="fa fa-user pr-1"></i></a>
                         </div>
                     </div>
                 </div>

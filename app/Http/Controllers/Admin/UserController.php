@@ -29,9 +29,7 @@ class UserController extends Controller
             $users->where('is_superuser',1)->orWhere('is_staff',1);
         }
 
-        // TODO: orderBy
-
-        $users = $users->latest()->paginate(20);
+        $users = $users->paginate(20);
 
         return view('admin.users.all',compact('users'));
     }
