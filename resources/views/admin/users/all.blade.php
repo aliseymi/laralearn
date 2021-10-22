@@ -52,7 +52,7 @@
                                     <form action="{{ route('admin.users.destroy',['user' => $user->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash"></i></button>
+                                        <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deleteUser"></i></button>
                                     </form>
                                     <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
                                 </td>
