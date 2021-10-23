@@ -62,12 +62,7 @@
                         </div>
 
                         <div class="form-group col-md-6 offset-md-4">
-                            @recaptcha
-                            @error('g-recaptcha-response')
-                            <span class="invalid-feedback" role="alert">
-                                    <strong>{{$message}}</strong>
-                                </span>
-                            @enderror
+                            <x-recaptcha :has-error="$errors->has('g-recaptcha-response')"/>
                         </div>
 
                         <div class="form-group row mb-0">
