@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,10 @@ Route::get('/', function () {
 //        return new \App\Services\FooService();
 //    });
 
-
+    if(Gate::allows('edit-user')){
+        return view('welcome');
+    }
+    return 'no';
     return view('welcome');
 });
 

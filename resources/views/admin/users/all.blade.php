@@ -54,7 +54,9 @@
                                         @method('DELETE')
                                         <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deleteUser"></i></button>
                                     </form>
-                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
+                                    @can('edit',$user)
+                                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -69,5 +71,7 @@
             <!-- /.card -->
         </div>
     </div>
+    <script src="{{ asset('js/sweetalert.js') }}" async></script>
+    <script src="{{ asset('js/admin/users/all.js') }}" async></script>
 @endcomponent
 

@@ -5,11 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        //
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,19 +25,19 @@ class UserController extends Controller
     {
         $users = User::query();
 
-        if($search = \request('search')){
-            $users->where('email','LIKE',"%$search%")
-                ->orWhere('name','LIKE',"%$search%")
-                ->orWhere('id',$search);
+        if ($search = \request('search')) {
+            $users->where('email', 'LIKE', "%$search%")
+                ->orWhere('name', 'LIKE', "%$search%")
+                ->orWhere('id', $search);
         }
 
-        if(\request('admin')){
-            $users->where('is_superuser',1)->orWhere('is_staff',1);
+        if (\request('admin')) {
+            $users->where('is_superuser', 1)->orWhere('is_staff', 1);
         }
 
         $users = $users->paginate(20);
 
-        return view('admin.users.all',compact('users'));
+        return view('admin.users.all', compact('users'));
     }
 
     /**
@@ -47,7 +53,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -60,7 +66,7 @@ class UserController extends Controller
 
         $user = User::create($data);
 
-        if($request->has('verify')){
+        if ($request->has('verify')) {
             $user->markEmailAsVerified();
         }
         alert()->success('کاربر با موفقیت ثبت شد');
@@ -70,7 +76,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -81,19 +87,19 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  USer $user
+     * @param USer $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit',compact('user'));
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  User $user
+     * @param \Illuminate\Http\Request $request
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -103,15 +109,15 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
         ]);
 
-        if(! is_null($request->password)){
+        if (!is_null($request->password)) {
             $request->validate([
-                'password' => ['required','string','min:8','confirmed']
+                'password' => ['required', 'string', 'min:8', 'confirmed']
             ]);
             $data['password'] = $request->password;
         }
 
         $user->update($data);
-        if($request->has('verify')){
+        if ($request->has('verify')) {
             $user->markEmailAsVerified();
         }
 
@@ -122,7 +128,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  User $user
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

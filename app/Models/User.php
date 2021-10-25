@@ -53,6 +53,16 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->attributes['password'] = bcrypt($value);
     }
 
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
     /**
      * Send the email verification notification.
      *
@@ -102,5 +112,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isStaff()
     {
         return $this->is_staff;
+    }
+
+    public function hasRole($role)
+    {
+        return !! $role->intersect($this->roles)->all();
+    }
+
+    public function hasPermission($permission)
+    {
+        return $this->permissions->contains('name',$permission->name) || $this->hasRole($permission->roles);
     }
 }
