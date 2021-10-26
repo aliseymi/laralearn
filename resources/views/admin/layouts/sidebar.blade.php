@@ -45,10 +45,28 @@
                                     <p>لیست کاربران</p>
                                 </a>
                             </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview {{ isActive(['admin.permissions.index','admin.permissions.create','admin.permissions.edit'],'menu-open') }}">
+                        <a href="#" class="nav-link {{ isActive(['admin.permissions.index','admin.permissions.create','admin.permissions.edit']) }}">
+                            <i class="nav-icon fa fa-id-card"></i>
+                            <p>
+                                بخش دسترسی ها
+                                <i class="right fa fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('admin.permissions.index') }}" class="nav-link {{ isActive(['admin.permissions.index','admin.permissions.create','admin.permissions.edit']) }}">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>دسترسی ها</p>
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="fa fa-circle-o nav-icon"></i>
-                                    <p>دسترسی کاربران</p>
+                                    <p>مقام ها</p>
                                 </a>
                             </li>
                         </ul>

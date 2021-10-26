@@ -7,4 +7,5 @@ Route::get('/',function (){
 });
 
 Route::resource('users',\App\Http\Controllers\Admin\UserController::class);
+Route::resource('permissions',\App\Http\Controllers\Admin\PermissionController::class);
 
