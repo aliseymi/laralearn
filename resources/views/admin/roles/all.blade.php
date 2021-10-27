@@ -1,14 +1,14 @@
-@component('admin.layouts.content',['title' => 'لیست کاربران'])
+@component('admin.layouts.content',['title' => 'لیست مقام ها'])
 
     @slot('breadcrumb')
         <li class="breadcrumb-item"><a href="/admin">پنل مدیریت</a></li>
-        <li class="breadcrumb-item active">لیست کاربران</li>
+        <li class="breadcrumb-item active">لیست مقام ها</li>
     @endslot
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">لیست کاربران</h3>
+                    <h3 class="card-title">لیست مقام ها</h3>
 
                     <div class="card-tools d-flex">
                         <form action="">
@@ -22,8 +22,7 @@
                         </form>
 
                         <div class="btn-group-sm">
-                            <a href="{{ route('admin.users.create') }}" class="btn btn-info mr-1">افزودن کاربر<i class="fa fa-plus pr-1"></i></a>
-                            <a href="{{ request()->fullUrlWithoutQuery(['search','admin','sort']) . '?admin=1' }}" class="btn btn-warning">کاربران ادمین<i class="fa fa-user pr-1"></i></a>
+                            <a href="{{ route('admin.roles.create') }}" class="btn btn-info mr-1">افزودن مقام<i class="fa fa-plus pr-1"></i></a>
                         </div>
                     </div>
                 </div>
@@ -32,31 +31,22 @@
                     <table class="table table-hover text-center">
                         <tbody>
                         <tr>
-                            <th>آیدی کاربر</th>
-                            <th>نام کاربر</th>
-                            <th>ایمیل</th>
-                            <th>وضعیت</th>
+                            <th>عنوان مقام</th>
+                            <th>توضیح مقام</th>
                             <th>اقدامات</th>
                         </tr>
-                        @foreach($users as $user)
+                        @foreach($roles as $role)
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                @if($user->hasVerifiedEmail())
-                                    <td><span class="badge badge-success">فعال</span></td>
-                                @else
-                                    <td><span class="badge badge-danger">غیرفعال</span></td>
-                                @endif
+                                <td>{{ $role->name }}</td>
+                                <td>{{ $role->label }}</td>
+
                                 <td class="d-flex justify-content-center">
-                                    <form action="{{ route('admin.users.destroy',['user' => $user->id]) }}" method="POST">
+                                    <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deleteUser"></i></button>
+                                        <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deleteRole"></i></button>
                                     </form>
-                                    @can('edit-user')
-                                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
-                                    @endcan
+                                    <a href="{{ route('admin.roles.edit', $role->id) }}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -65,13 +55,13 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    {{ $users->render() }}
+                    {{ $roles->render() }}
                 </div>
             </div>
             <!-- /.card -->
         </div>
     </div>
     <script src="{{ asset('js/sweetalert.js') }}" defer></script>
-    <script src="{{ asset('js/admin/users/all.js') }}" defer></script>
+    <script src="{{ asset('js/admin/roles/all.js') }}" defer></script>
 @endcomponent
 

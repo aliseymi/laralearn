@@ -39,7 +39,7 @@
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-info float-left">ویرایش<i class="fa fa-plus pr-1"></i>
+                        <button type="submit" class="btn btn-info float-left">ویرایش<i class="fa fa-edit pr-1"></i>
                         </button>
                         <a href="{{ route('admin.permissions.index') }}" class="btn btn-default"><i
                                 class="fa fa-arrow-right pl-1"></i>بازگشت</a>

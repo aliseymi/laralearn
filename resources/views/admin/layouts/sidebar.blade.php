@@ -48,8 +48,8 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item has-treeview {{ isActive(['admin.permissions.index','admin.permissions.create','admin.permissions.edit'],'menu-open') }}">
-                        <a href="#" class="nav-link {{ isActive(['admin.permissions.index','admin.permissions.create','admin.permissions.edit']) }}">
+                    <li class="nav-item has-treeview {{ isActive(['admin.permissions.index','admin.permissions.create','admin.permissions.edit','admin.roles.index','admin.roles.create','admin.roles.edit'],'menu-open') }}">
+                        <a href="#" class="nav-link {{ isActive(['admin.permissions.index','admin.permissions.create','admin.permissions.edit','admin.roles.index','admin.roles.create','admin.roles.edit']) }}">
                             <i class="nav-icon fa fa-id-card"></i>
                             <p>
                                 بخش دسترسی ها
@@ -64,7 +64,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{ route('admin.roles.index') }}" class="nav-link {{ isActive(['admin.roles.index','admin.roles.create','admin.roles.edit']) }}">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>مقام ها</p>
                                 </a>
