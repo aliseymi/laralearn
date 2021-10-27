@@ -54,7 +54,7 @@ class RoleController extends Controller
         ]);
 
         $role = Role::create($data);
-        $role->permissions()->sync($data['permissions'],$role->id);
+        $role->permissions()->sync($data['permissions']);
 
         alert()->success('مقام با موفقیت ایجاد شد');
         return redirect(route('admin.roles.index'));
@@ -98,7 +98,7 @@ class RoleController extends Controller
         ]);
 
         $role->update($data);
-        $role->permissions()->sync($data['permissions'],$role->id);
+        $role->permissions()->sync($data['permissions']);
 
         alert()->success('مقام مورد نظر شما با موفقیت ویرایش شد');
         return redirect(route('admin.roles.index'));
