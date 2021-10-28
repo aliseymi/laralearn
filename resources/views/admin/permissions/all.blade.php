@@ -61,7 +61,31 @@
             <!-- /.card -->
         </div>
     </div>
-    <script src="{{ asset('js/sweetalert.js') }}" defer></script>
-    <script src="{{ asset('js/admin/permissions/all.js') }}" defer></script>
+
+    @slot('script')
+        <script>
+            $('.deletePermission').on('click',function (){
+                let deleteBtn = $(this);
+                Swal.fire({
+                    icon: 'warning',
+                    iconColor: '#ff1e00',
+                    title: 'آیا از حذف دسترسی اطمینان دارید؟',
+                    text: 'پس از حذف،امکان بازگردانی عملیات وجود ندارد!',
+                    showConfirmButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'بله',
+                    confirmButtonColor: '#28a745',
+                    cancelButtonText: 'منصرف شدم',
+                    cancelButtonColor: '#ff2200',
+                    reverseButtons:true,
+                    focusCancel: true,
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        deleteBtn.closest('form').submit();
+                    }
+                });
+            })
+        </script>
+    @endslot
 @endcomponent
 

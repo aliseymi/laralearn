@@ -54,9 +54,11 @@
                                         @method('DELETE')
                                         <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deleteUser"></i></button>
                                     </form>
-                                    @can('edit-user')
-                                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
-                                    @endcan
+
+                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-success ml-1"><i class="fa fa-edit"></i></a>
+                                    @if($user->isStaff())
+                                        <a href="{{ route('admin.users.permissions', $user->id) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" title="دسترسی های کاربر"><i class="fa fa-id-card-o"></i></a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -71,7 +73,31 @@
             <!-- /.card -->
         </div>
     </div>
-    <script src="{{ asset('js/sweetalert.js') }}" defer></script>
-    <script src="{{ asset('js/admin/users/all.js') }}" defer></script>
+
+    @slot('script')
+        <script>
+            $('.deleteUser').on('click',function (){
+                let deleteBtn = $(this);
+                Swal.fire({
+                    icon: 'warning',
+                    iconColor: '#ff1e00',
+                    title: 'آیا از حذف کاربر اطمینان دارید؟',
+                    text: 'پس از حذف،امکان بازگردانی عملیات وجود ندارد!',
+                    showConfirmButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'بله',
+                    confirmButtonColor: '#28a745',
+                    cancelButtonText: 'منصرف شدم',
+                    cancelButtonColor: '#ff2200',
+                    reverseButtons:true,
+                    focusCancel: true,
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        deleteBtn.closest('form').submit();
+                    }
+                });
+            })
+        </script>
+    @endslot
 @endcomponent
 

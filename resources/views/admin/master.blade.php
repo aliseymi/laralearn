@@ -26,6 +26,7 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <!-- Admin Style -->
+    <link rel="stylesheet" href="/plugins/select2/select2.css">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 </head>
 <body class="hold-transition sidebar-mini">
@@ -86,7 +87,10 @@
 <script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="/plugins/fastclick/fastclick.js"></script>
+<script src="/plugins/select2/select2.full.js"></script>
+<script src="/js/sweetalert.js"></script>
 <script src="{{ asset('js/admin.js') }}"></script>
+@yield('script')
 @include('sweet::alert')
 </body>
 </html>

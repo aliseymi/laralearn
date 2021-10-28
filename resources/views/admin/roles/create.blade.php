@@ -37,8 +37,8 @@
                         </div>
 
                         <div class="form-group col-lg-12">
-                            <label for="selectPermission" class="col-sm-4 control-label">توضیح مقام</label>
-                            <select class="form-control" name="permissions[]" id="selectPermission" multiple>
+                            <label for="permissions" class="col-sm-4 control-label">دسترسی های این مقام</label>
+                            <select class="form-control" name="permissions[]" id="permissions" multiple>
                                 @foreach(\App\Models\Permission::all() as $permission)
                                     <option value="{{ $permission->id }}">{{ $permission->name }} - {{ $permission->label }}</option>
                                 @endforeach
@@ -57,4 +57,13 @@
             </div>
         </div>
     </div>
+
+    @slot('script')
+        <script>
+            $('#permissions').select2({
+                'placeholder': 'دسترسی های مورد نظر را انتخاب کنید',
+                dir: 'rtl'
+            });
+        </script>
+    @endslot
 @endcomponent
