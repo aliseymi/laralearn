@@ -13,7 +13,10 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        //
+        $this->middleware('can:show-users')->only('index');
+        $this->middleware('can:create-user')->only(['create','store']);
+        $this->middleware('can:edit-user')->only(['edit','update']);
+        $this->middleware('can:delete-user')->only('destroy');
     }
 
     /**
@@ -31,9 +34,14 @@ class UserController extends Controller
                 ->orWhere('id', $search);
         }
 
-        if (\request('admin')) {
-            $users->where('is_superuser', 1)->orWhere('is_staff', 1);
+        if(Gate::allows('show-staff-users')){
+            if (\request('admin')) {
+                $users->where('is_superuser', 1)->orWhere('is_staff', 1);
+            }else{
+                $users->where('is_superuser', 0)->orWhere('is_staff', 0);
+            }
         }
+
 
         $users = $users->paginate(20);
 

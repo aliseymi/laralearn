@@ -22,8 +22,12 @@
                         </form>
 
                         <div class="btn-group-sm">
-                            <a href="{{ route('admin.users.create') }}" class="btn btn-info mr-1">افزودن کاربر<i class="fa fa-plus pr-1"></i></a>
-                            <a href="{{ request()->fullUrlWithoutQuery(['search','admin','sort']) . '?admin=1' }}" class="btn btn-warning">کاربران ادمین<i class="fa fa-user pr-1"></i></a>
+                            @can('create-user')
+                                <a href="{{ route('admin.users.create') }}" class="btn btn-info mr-1">افزودن کاربر<i class="fa fa-plus pr-1"></i></a>
+                            @endcan
+                            @can('show-staff-users')
+                                    <a href="{{ request()->fullUrlWithoutQuery(['search','admin','sort']) . '?admin=1' }}" class="btn btn-warning">کاربران ادمین<i class="fa fa-user pr-1"></i></a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -49,16 +53,21 @@
                                     <td><span class="badge badge-danger">غیرفعال</span></td>
                                 @endif
                                 <td class="d-flex justify-content-center">
-                                    <form action="{{ route('admin.users.destroy',['user' => $user->id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deleteUser"></i></button>
-                                    </form>
-
-                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-success ml-1"><i class="fa fa-edit"></i></a>
-                                    @if($user->isStaff())
-                                        <a href="{{ route('admin.users.permissions', $user->id) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" title="دسترسی های کاربر"><i class="fa fa-id-card-o"></i></a>
-                                    @endif
+                                    @can('delete-user')
+                                        <form action="{{ route('admin.users.destroy',['user' => $user->id]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deleteUser"></i></button>
+                                        </form>
+                                    @endcan
+                                    @can('edit-user')
+                                            <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-success ml-1"><i class="fa fa-edit"></i></a>
+                                    @endcan
+                                   @can('staff-user-permissions')
+                                            @if($user->isStaff())
+                                                <a href="{{ route('admin.users.permissions', $user->id) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" title="دسترسی های کاربر"><i class="fa fa-id-card-o"></i></a>
+                                            @endif
+                                   @endcan
                                 </td>
                             </tr>
                         @endforeach

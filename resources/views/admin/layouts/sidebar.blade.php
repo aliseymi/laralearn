@@ -30,24 +30,26 @@
                             پنل مدیریت
                         </a>
                     </li>
-                    <li class="nav-item has-treeview {{ isActive(['admin.users.index','admin.users.create','admin.users.edit','admin.users.permissions'],'menu-open') }}">
-                        <a href="#" class="nav-link {{ isActive(['admin.users.index','admin.users.create','admin.users.edit','admin.users.permissions']) }}">
-                            <i class="nav-icon fa fa-users"></i>
-                            <p>
-                                کاربران
-                                <i class="right fa fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ route('admin.users.index') }}" class="nav-link {{ isActive(['admin.users.index','admin.users.create','admin.users.edit','admin.users.permissions']) }}">
-                                    <i class="fa fa-circle-o nav-icon"></i>
-                                    <p>لیست کاربران</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
 
+                    @can('show-users')
+                        <li class="nav-item has-treeview {{ isActive(['admin.users.index','admin.users.create','admin.users.edit','admin.users.permissions'],'menu-open') }}">
+                            <a href="#" class="nav-link {{ isActive(['admin.users.index','admin.users.create','admin.users.edit','admin.users.permissions']) }}">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>
+                                    کاربران
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.users.index') }}" class="nav-link {{ isActive(['admin.users.index','admin.users.create','admin.users.edit','admin.users.permissions']) }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>لیست کاربران</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endcan
                     <li class="nav-item has-treeview {{ isActive(['admin.permissions.index','admin.permissions.create','admin.permissions.edit','admin.roles.index','admin.roles.create','admin.roles.edit'],'menu-open') }}">
                         <a href="#" class="nav-link {{ isActive(['admin.permissions.index','admin.permissions.create','admin.permissions.edit','admin.roles.index','admin.roles.create','admin.roles.edit']) }}">
                             <i class="nav-icon fa fa-id-card"></i>
