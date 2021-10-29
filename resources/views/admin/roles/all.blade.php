@@ -22,7 +22,9 @@
                         </form>
 
                         <div class="btn-group-sm">
+                            @can('create-role')
                             <a href="{{ route('admin.roles.create') }}" class="btn btn-info mr-1">افزودن مقام<i class="fa fa-plus pr-1"></i></a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -41,12 +43,16 @@
                                 <td>{{ $role->label }}</td>
 
                                 <td class="d-flex justify-content-center">
-                                    <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deleteRole"></i></button>
-                                    </form>
+                                   @can('delete-role')
+                                        <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deleteRole"></i></button>
+                                        </form>
+                                    @endcan
+                                    @can('edit-role')
                                     <a href="{{ route('admin.roles.edit', $role->id) }}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

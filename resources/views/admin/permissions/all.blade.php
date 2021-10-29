@@ -22,7 +22,9 @@
                         </form>
 
                         <div class="btn-group-sm">
+                            @can('create-permission')
                             <a href="{{ route('admin.permissions.create') }}" class="btn btn-info mr-1">افزودن دسترسی<i class="fa fa-plus pr-1"></i></a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -41,12 +43,16 @@
                                 <td>{{ $permission->label }}</td>
 
                                 <td class="d-flex justify-content-center">
-                                    <form action="{{ route('admin.permissions.destroy', $permission->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deletePermission"></i></button>
-                                    </form>
-                                    <a href="{{ route('admin.permissions.edit', $permission->id) }}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
+                                  @can('delete-permission')
+                                        <form action="{{ route('admin.permissions.destroy', $permission->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deletePermission"></i></button>
+                                        </form>
+                                  @endcan
+                                    @can('edit-permission')
+                                          <a href="{{ route('admin.permissions.edit', $permission->id) }}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
