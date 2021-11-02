@@ -34,7 +34,7 @@ class PermissionController extends Controller
                 ->orWhere('label', 'LIKE', "%$search%");
         }
 
-        $permissions = $permissions->latest()->paginate(20);
+        $permissions = $permissions->latest()->paginate(10);
 
         return view('admin.permissions.all', compact('permissions'));
     }

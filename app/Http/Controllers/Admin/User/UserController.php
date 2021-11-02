@@ -43,7 +43,7 @@ class UserController extends Controller
         }
 
 
-        $users = $users->paginate(20);
+        $users = $users->paginate(10);
 
         return view('admin.users.all', compact('users'));
     }

@@ -33,7 +33,7 @@ class RoleController extends Controller
                 ->orWhere('label', 'LIKE', "%$search%");
         }
 
-        $roles = $roles->latest()->paginate(20);
+        $roles = $roles->latest()->paginate(10);
 
         return view('admin.roles.all', compact('roles'));
     }

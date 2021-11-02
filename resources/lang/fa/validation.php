@@ -176,5 +176,7 @@ return [
         'province'              => 'استان',
         'body'                  => 'متن',
         'label'                 => 'توضیح',
+        'inventory'             => 'تعداد',
+        'price'                 => 'قیمت',
     ],
 ];

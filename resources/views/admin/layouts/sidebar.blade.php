@@ -79,6 +79,27 @@
                             </ul>
                         </li>
                     @endcanany
+
+                    @can('show-products')
+                        <li class="nav-item has-treeview {{ isActive(['admin.products.index','admin.products.create','admin.products.edit'],'menu-open') }}">
+                            <a href="#" class="nav-link {{ isActive(['admin.products.index','admin.products.create','admin.products.edit']) }}">
+                                <i class="nav-icon fa fa-amazon"></i>
+                                <p>
+                                    بخش محصولات
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.products.index') }}" class="nav-link {{ isActive(['admin.products.index','admin.products.create','admin.products.edit']) }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>لیست محصولات</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endcan
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

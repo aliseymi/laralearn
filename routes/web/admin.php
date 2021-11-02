@@ -11,5 +11,5 @@ Route::get('/users/{user}/permissions',[\App\Http\Controllers\Admin\User\Permiss
 Route::post('/users/{user}/permissions',[\App\Http\Controllers\Admin\User\PermissionController::class,'store'])->name('users.permissions.store')->middleware('can:staff-user-permissions');
 Route::resource('permissions',\App\Http\Controllers\Admin\PermissionController::class);
 Route::resource('roles',\App\Http\Controllers\Admin\RoleController::class);
-Route::resource('products',\App\Http\Controllers\Admin\ProductController::class);
+Route::resource('products',\App\Http\Controllers\Admin\ProductController::class)->except(['show']);
 
