@@ -38,7 +38,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav mr-auto">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))

@@ -15,11 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-//    $container = new \App\Container();
-//    $container->bind('fooService', function (){
-//        return new \App\Services\FooService();
-//    });
-
     return view('welcome');
 });
 
@@ -42,4 +37,7 @@ Route::prefix('profile')->middleware('auth')->group(function (){
 
 Route::get('auth/token',[\App\Http\Controllers\Auth\AuthTokenController::class,'getToken'])->name('2fa.token');
 Route::post('auth/token',[\App\Http\Controllers\Auth\AuthTokenController::class,'postToken']);
+
+Route::get('products',[\App\Http\Controllers\ProductController::class,'index']);
+Route::get('products/{product}',[\App\Http\Controllers\ProductController::class,'single']);
 

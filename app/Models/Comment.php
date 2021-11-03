@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Comment extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'price', 'inventory', 'view_count'
+        'comment', 'approve', 'parent_id', 'user_id'
     ];
 
     public function user()
@@ -18,8 +18,8 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function comments()
+    public function commentable()
     {
-        return $this->morphMany(Comment::class,'commentable');
+        return $this->morphTo();
     }
 }
