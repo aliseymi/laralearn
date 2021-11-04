@@ -43,13 +43,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('ورود') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('ثبت نام') }}</a>
                                 </li>
                             @endif
                         @else
@@ -59,11 +59,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a href="{{url('profile')}}" class="dropdown-item">{{__('Profile')}}</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a href="{{url('profile')}}" class="dropdown-item text-right">{{__('پروفایل')}}</a>
+                                    <a class="dropdown-item text-right" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('خروج') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -82,6 +82,7 @@
         </main>
     </div>
 
+    <script src="/js/sweetalert.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('script')
     @include('sweet::alert')

@@ -40,4 +40,5 @@ Route::post('auth/token',[\App\Http\Controllers\Auth\AuthTokenController::class,
 
 Route::get('products',[\App\Http\Controllers\ProductController::class,'index']);
 Route::get('products/{product}',[\App\Http\Controllers\ProductController::class,'single']);
+Route::post('comments',[\App\Http\Controllers\HomeController::class,'comment'])->name('send.comment');
 
