@@ -28,3 +28,7 @@
 @section('script')
     {{ $script ?? '' }}
 @endsection
+
+@section('head')
+    {{ $head ?? '' }}
+@endsection

@@ -17,3 +17,4 @@ Route::get('comments/unapproved',[\App\Http\Controllers\Admin\CommentController:
 Route::patch('comments/{comment}/update',[\App\Http\Controllers\Admin\CommentController::class,'updateComment'])->name('comments.update.comment');
 Route::resource('comments',\App\Http\Controllers\Admin\CommentController::class)->only(['index','edit','update','destroy']);
 
+Route::resource('categories',\App\Http\Controllers\Admin\CategoryController::class);

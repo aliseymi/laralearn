@@ -28,6 +28,7 @@
     <!-- Admin Style -->
     <link rel="stylesheet" href="/plugins/select2/select2.css">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    @yield('head')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
