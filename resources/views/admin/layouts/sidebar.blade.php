@@ -100,6 +100,33 @@
                         </li>
                     @endcan
 
+                    @can('show-comments')
+                        <li class="nav-item has-treeview {{ isActive(['admin.comments.index','admin.comments.unapproved','admin.comments.edit'],'menu-open') }}">
+                            <a href="#" class="nav-link {{ isActive(['admin.comments.index','admin.comments.unapproved','admin.comments.edit']) }}">
+                                <i class="nav-icon fa fa-comment"></i>
+                                <p>
+                                    بخش نظرات
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.comments.index') }}" class="nav-link {{ isActive(['admin.comments.index','admin.comments.edit']) }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>نظرات تایید شده</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.comments.unapproved') }}" class="nav-link {{ isActive(['admin.comments.unapproved']) }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>نظرات تایید نشده</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endcan
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

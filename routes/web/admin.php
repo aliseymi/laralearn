@@ -13,3 +13,7 @@ Route::resource('permissions',\App\Http\Controllers\Admin\PermissionController::
 Route::resource('roles',\App\Http\Controllers\Admin\RoleController::class);
 Route::resource('products',\App\Http\Controllers\Admin\ProductController::class)->except(['show']);
 
+Route::get('comments/unapproved',[\App\Http\Controllers\Admin\CommentController::class,'unapproved'])->name('comments.unapproved');
+Route::patch('comments/{comment}/update',[\App\Http\Controllers\Admin\CommentController::class,'updateComment'])->name('comments.update.comment');
+Route::resource('comments',\App\Http\Controllers\Admin\CommentController::class)->only(['index','edit','update','destroy']);
+

@@ -178,5 +178,6 @@ return [
         'label'                 => 'توضیح',
         'inventory'             => 'تعداد',
         'price'                 => 'قیمت',
+        'comment'               => 'نظر'
     ],
 ];
