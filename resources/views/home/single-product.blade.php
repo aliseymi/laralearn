@@ -9,6 +9,9 @@
 
             // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
             // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            let modal = $(this);
+            let parent_id = button.data('id');
+            modal.find('input[name="parent_id"]').val(parent_id);
         })
 
 
@@ -151,35 +154,46 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <h4 class="mt-4">بخش نظرات</h4>
                             @auth()
-                            <span class="btn btn-sm btn-primary" data-toggle="modal" data-target="#sendComment">ثبت نظر جدید</span>
+                            <span class="btn btn-sm btn-primary" data-toggle="modal" data-target="#sendComment" data-id="0">ثبت نظر جدید</span>
                             @endauth
                         </div>
-{{--                        <div class="card">--}}
-{{--                            <div class="card-header d-flex justify-content-between">--}}
-{{--                                <div class="commenter">--}}
-{{--                                    <span>نام نظردهنده</span>--}}
-{{--                                    <span class="text-muted">- دو دقیقه قبل</span>--}}
-{{--                                </div>--}}
-{{--                                <span class="btn btn-sm btn-primary" data-toggle="modal" data-target="#sendComment" data-id="2" data-type="product">پاسخ به نظر</span>--}}
-{{--                            </div>--}}
 
-{{--                            <div class="card-body">--}}
-{{--                                محصول زیبایه--}}
+                        @guest()
+                            <div class="alert alert-primary">برای ثبت نظر باید وارد سایت شوید</div>
+                        @endguest
 
-{{--                                <div class="card mt-3">--}}
-{{--                                    <div class="card-header d-flex justify-content-between">--}}
-{{--                                        <div class="commenter">--}}
-{{--                                            <span>نام نظردهنده</span>--}}
-{{--                                            <span class="text-muted">- دو دقیقه قبل</span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
+                        @foreach($product->comments()->where('parent_id',0)->get() as $comment)
+                            <div class="card {{ !$loop->first ? 'mt-3' : '' }}">
+                                <div class="card-header d-flex justify-content-between">
+                                    <div class="commenter">
+                                        <span>{{ $comment->user->name }}</span>
+                                        <span class="text-muted">- دو دقیقه قبل</span>
+                                    </div>
+                                    @auth()
+                                        <span class="btn btn-sm btn-primary" data-toggle="modal" data-target="#sendComment" data-id="{{ $comment->id }}" data-type="product">پاسخ به نظر</span>
+                                    @endauth
+                                </div>
 
-{{--                                    <div class="card-body">--}}
-{{--                                        محصول زیبایه--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                                <div class="card-body">
+                                    {{ $comment->comment }}
+
+                                   @foreach($comment->child as $childComment)
+                                        <div class="card mt-3">
+                                            <div class="card-header d-flex justify-content-between">
+                                                <div class="commenter">
+                                                    <span>{{ $childComment->user->name }}</span>
+                                                    <span class="text-muted">- دو دقیقه قبل</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-body">
+                                                {{ $childComment->comment }}
+                                            </div>
+                                        </div>
+                                   @endforeach
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
     </div>
