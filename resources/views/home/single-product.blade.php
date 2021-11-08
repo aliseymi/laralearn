@@ -143,8 +143,13 @@
                     </div>
 
                     <div class="card-body">
+                        @if($product->categories)
+                            @foreach($product->categories as $category)
+                                <a href="#">{{ $category->name }}</a>
+                            @endforeach
+                            <br>
+                        @endif
                         {{ $product->description }}
-
                     </div>
                 </div>
             </div>

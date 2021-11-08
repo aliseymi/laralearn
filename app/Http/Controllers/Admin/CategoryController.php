@@ -12,6 +12,9 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('can:create-category')->only(['create','store']);
+        $this->middleware('can:show-categories')->only(['index']);
+        $this->middleware('can:edit-category')->only(['edit','update']);
+        $this->middleware('can:delete-category')->only(['destroy']);
     }
 
     /**
@@ -37,7 +40,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -48,19 +51,27 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        if($request->parent){
+            $request->validate([
+                'name' => 'required|string|min:3',
+                'parent' => 'required|exists:categories,id'
+            ]);
+        }else{
+            $request->validate([
+                'name' => 'required|string|min:3'
+            ]);
+        }
+
+        Category::create([
+            'name' => $request->name,
+            'parent' => $request->parent ?? 0
+        ]);
+
+        alert()->success('دسته بندی با موفقیت اضافه شد');
+        return redirect(route('admin.categories.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -70,7 +81,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit',compact('category'));
     }
 
     /**
@@ -82,7 +93,17 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:3'
+        ]);
+
+        $category->update([
+            'name' => $request->name,
+            'parent' => $request->parent
+        ]);
+
+        alert()->success('دسته بندی با موفقیت ویرایش شد');
+        return redirect(route('admin.categories.index'));
     }
 
     /**
@@ -93,6 +114,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        alert()->success('دسته بندی با موفقیت حذف شد');
+        return back();
     }
 }

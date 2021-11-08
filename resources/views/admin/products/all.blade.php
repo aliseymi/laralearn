@@ -51,7 +51,7 @@
                                         <form action="{{ route('admin.products.destroy',['product' => $product->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deleteProduct"></i></button>
+                                            <button type="button" class="btn btn-sm btn-danger ml-1 deleteProduct"><i class="fa fa-trash"></i></button>
                                         </form>
                                     @endcan
                                     @can('edit-product')

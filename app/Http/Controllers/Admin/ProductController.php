@@ -51,9 +51,11 @@ class ProductController extends Controller
             'description' => 'required|string',
             'inventory' => 'required|numeric|min:0',
             'price' => 'required|numeric|min:0',
+            'categories' => 'required|array'
         ]);
 
-        auth()->user()->products()->create($data);
+        $product = auth()->user()->products()->create($data);
+        $product->categories()->sync($data['categories']);
 
         alert()->success('محصول با موفقیت ثبت شد','عملیات موفق');
         return redirect(route('admin.products.index'));
@@ -86,9 +88,11 @@ class ProductController extends Controller
             'description' => 'required|string',
             'inventory' => 'required|numeric|min:0',
             'price' => 'required|numeric|min:0',
+            'categories' => 'required|array'
         ]);
 
         $product->update($data);
+        $product->categories()->sync($data['categories']);
 
         alert()->success('محصول مورد نظر شما با موفقیت ویرایش شد','عملیات موفق');
         return redirect(route('admin.products.index'));

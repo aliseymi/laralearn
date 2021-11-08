@@ -127,6 +127,15 @@
                         </li>
                     @endcan
 
+                    @can('show-categories')
+                        <li class="nav-item">
+                            <a href="{{ route('admin.categories.index') }}" class="nav-link {{ isActive(['admin.categories.index','admin.categories.create','admin.categories.edit']) }}">
+                                <i class="fa fa-table nav-icon"></i>
+                                دسته بندی ها
+                            </a>
+                        </li>
+                    @endcan
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

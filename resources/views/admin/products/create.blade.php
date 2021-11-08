@@ -22,6 +22,16 @@
                 <form class="form-horizontal" action="{{ route('admin.products.store') }}" method="POST">
                     @csrf
                     <div class="card-body d-flex flex-wrap">
+
+                        <div class="form-group col-lg-12">
+                            <label for="categories" class="col-sm-4 control-label">دسته بندی</label>
+                            <select class="form-control" name="categories[]" id="categories" multiple>
+                                @foreach(\App\Models\Category::all() as $cate)
+                                    <option value="{{ $cate->id }}">{{ $cate->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="form-group col-lg-12">
                             <label for="inputName" class="col-sm-2 control-label">نام محصول</label>
 
@@ -62,4 +72,13 @@
             </div>
         </div>
     </div>
+
+    @slot('script')
+        <script>
+            $('#categories').select2({
+                'placeholder': 'لطفا یک دسته بندی را انتخاب کنید',
+                dir: 'rtl'
+            });
+        </script>
+    @endslot
 @endcomponent

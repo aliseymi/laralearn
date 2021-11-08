@@ -57,7 +57,7 @@
                                         <form action="{{ route('admin.users.destroy',['user' => $user->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="btn btn-sm btn-danger ml-1"><i class="fa fa-trash deleteUser"></i></button>
+                                            <button type="button" class="btn btn-sm btn-danger ml-1 deleteUser"><i class="fa fa-trash"></i></button>
                                         </form>
                                     @endcan
                                     @can('edit-user')
