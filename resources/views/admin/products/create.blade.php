@@ -110,7 +110,7 @@
                             <option value="" selected>لطفا یک مورد را انتخاب کنید</option>
                             ${
                             res.data.map(function (item){
-                                return `<option value="${item}">${item}</oprion>`;
+                                return `<option value="${item}">${item}</option>`;
                             })
                         }
                         `);

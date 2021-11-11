@@ -19,6 +19,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
+                <div id="attributes" data-attributes="{{ json_encode(\App\Models\Attribute::all()->pluck('name')) }}"></div>
                 <form class="form-horizontal" action="{{ route('admin.products.update',$product->id) }}" method="POST">
                     @csrf
                     @method('PATCH')
@@ -60,6 +61,47 @@
                                    placeholder="قیمت را وارد کنید" value="{{ old('price',$product->price) }}">
                         </div>
 
+                        <div class="form-group col-lg-12 mt-3">
+                            <h6>ویژگی های محصول</h6>
+                            <hr>
+                            <div id="attribute_section">
+                                @foreach($product->attributes as $attribute)
+                                    <div class="row" id="attribute-{{ $loop->index }}">
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label>ویژگی ها</label>
+                                                <select name="attributes[{{ $loop->index }}][name]" onchange="changeAttributeValues(event,{{ $loop->index }});" class="form-control attribute-select">
+                                                    <option value="">لطفا یک مورد را انتخاب کنید</option>
+                                                    @foreach(\App\Models\Attribute::all() as $attr)
+                                                        <option value="{{ $attr->name }}" {{ $attr->id == $attribute->id ? 'selected' : '' }}>{{ $attr->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-5">
+                                            <div class="form-group">
+                                                <label>مقدار ویژگی ها</label>
+                                                <select name="attributes[{{ $loop->index }}][value]" class="form-control attribute-select">
+                                                    <option value="" selected>لطفا یک مورد را انتخاب کنید</option>
+                                                    @foreach($attribute->values as $value)
+                                                        <option value="{{ $value->value }}" {{ $value->id == $attribute->pivot->value_id ? 'selected' : '' }}>{{ $value->value }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <label>اقدامات</label>
+                                            <div>
+                                                <button type="button" class="btn btn-sm btn-warning" onclick="document.getElementById('attribute-{{ $loop->index }}').remove()">حذف</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <button type="button" class="btn btn-sm btn-danger" id="add_product_attribute">ویژگی جدید</button>
+                        </div>
+
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
@@ -79,6 +121,87 @@
             $('#categories').select2({
                 'placeholder': 'لطفا یک دسته بندی را انتخاب کنید',
                 dir: 'rtl'
+            });
+
+            $('.attribute-select').select2({tags: true,dir: 'rtl'});
+
+            let changeAttributeValues = (event,id) => {
+                let valueBox = $(`select[name="attributes[${id}][value]"]`);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                $.ajax({
+                    url: '/admin/attribute/values',
+                    type: 'POST',
+                    data: JSON.stringify({
+                        name: event.target.value
+                    }),
+                    success: function (res){
+                        valueBox.html(`
+                            <option value="" selected>لطفا یک مورد را انتخاب کنید</option>
+                            ${
+                            res.data.map(function (item){
+                                return `<option value="${item}">${item}</option>`;
+                            })
+                        }
+                        `);
+                    }
+                });
+            }
+
+            let createAttr = ({attributes,id}) => {
+                return `
+                    <div class="row" id="attribute-${id}">
+                        <div class="col-5">
+                            <div class="form-group">
+                                <label>ویژگی ها</label>
+                                <select name="attributes[${id}][name]" onchange="changeAttributeValues(event,${id});" class="form-control attribute-select">
+                                    <option value="">لطفا یک مورد را انتخاب کنید</option>
+                                        ${
+                    attributes.map(function (item){
+                        return `<option value="${item}">${item}</option>`;
+                    })
+                }
+                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="form-group">
+                                <label>مقدار ویژگی ها</label>
+                                <select name="attributes[${id}][value]" class="form-control attribute-select">
+                                    <option value="" selected>لطفا یک مورد را انتخاب کنید</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <label>اقدامات</label>
+                            <div>
+                                <button type="button" class="btn btn-sm btn-warning" onclick="document.getElementById('attribute-${id}').remove()">حذف</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            $('#add_product_attribute').click(function (){
+                let attributeSection = $('#attribute_section');
+                let id = attributeSection.children().length
+
+                let attributes = $('#attributes').data('attributes');
+
+                attributeSection.append(
+                    createAttr({
+                        attributes,
+                        id
+                    }));
+
+                $('.attribute-select').select2({tags: true,dir: 'rtl'});
             });
         </script>
     @endslot
