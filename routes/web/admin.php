@@ -18,3 +18,4 @@ Route::patch('comments/{comment}/update',[\App\Http\Controllers\Admin\CommentCon
 Route::resource('comments',\App\Http\Controllers\Admin\CommentController::class)->only(['index','edit','update','destroy']);
 
 Route::resource('categories',\App\Http\Controllers\Admin\CategoryController::class)->except(['show']);
+Route::post('/attribute/values',[\App\Http\Controllers\Admin\AttributeController::class,'getValues']);

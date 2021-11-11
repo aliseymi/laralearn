@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attribute;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -51,11 +52,27 @@ class ProductController extends Controller
             'description' => 'required|string',
             'inventory' => 'required|numeric|min:0',
             'price' => 'required|numeric|min:0',
-            'categories' => 'required|array'
+            'categories' => 'required|array',
+            'attributes' => 'array'
         ]);
 
         $product = auth()->user()->products()->create($data);
         $product->categories()->sync($data['categories']);
+
+        $attributes = collect($data['attributes']);
+        $attributes->each(function ($item) use($product){
+            if(is_null($item['name']) || is_null($item['value'])) return;
+
+            $attr = Attribute::firstOrCreate([
+                'name' => $item['name']
+            ]);
+
+            $attr_value = $attr->values()->firstOrCreate([
+                'value' => $item['value']
+            ]);
+
+            $product->attributes()->attach($attr->id,['value_id' => $attr_value->id]);
+        });
 
         alert()->success('محصول با موفقیت ثبت شد','عملیات موفق');
         return redirect(route('admin.products.index'));
