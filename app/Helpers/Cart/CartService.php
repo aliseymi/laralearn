@@ -3,6 +3,7 @@
 namespace App\Helpers\Cart;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class CartService
@@ -49,5 +50,52 @@ class CartService
             return !is_null($this->cart->where('subject_id',$key->id)->where('subject_type',get_class($key))->first());
         }
         return !is_null($this->cart->firstWhere('id',$key));
+    }
+
+    /**
+     * @param $key
+     * @return mixed
+     */
+    public function get($key)
+    {
+        $item = $key instanceof Model
+            ? $this->cart->where('subject_id',$key->id)->where('subject_type',get_class($key))->first()
+            : $this->cart->firstWhere('id',$key);
+
+        return $this->withRelationshipIfExist($item);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function all()
+    {
+        $cart = $this->cart;
+
+        $cart = $cart->map(function ($item){
+            return $this->withRelationshipIfExist($item);
+        });
+
+        return $cart;
+    }
+
+    /**
+     * @param $item
+     * @return mixed
+     */
+    protected function withRelationshipIfExist($item)
+    {
+        if(isset($item['subject_id']) && isset($item['subject_type'])){
+            $class = $item['subject_type'];
+            $subject = (new $class())->find($item['subject_id']);
+
+            unset($item['subject_id'],$item['subject_type']);
+
+            $item[strtolower(class_basename($class))] = $subject;
+
+            return $item;
+        }
+
+        return $item;
     }
 }
