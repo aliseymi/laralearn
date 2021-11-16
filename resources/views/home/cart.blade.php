@@ -115,7 +115,10 @@
                 </div>
 
                 <div class="float-left">
-                    <button type="button" class="btn btn-lg btn-primary mt-2">پرداخت</button>
+                    <form action="{{ route('cart.payment') }}" method="POST" id="cart-payment">
+                        @csrf
+                    </form>
+                    <button onclick="document.getElementById('cart-payment').submit()" type="button" class="btn btn-lg btn-primary mt-2">پرداخت</button>
                 </div>
 
             </div>
