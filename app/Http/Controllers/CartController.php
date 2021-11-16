@@ -15,16 +15,23 @@ class CartController extends Controller
         return view('home.cart');
     }
 
+    public function showCart2()
+    {
+        return view('home.cart2');
+    }
+
     public function addToCart(Product $product)
     {
-        if(Cart::has($product)){
-            if(Cart::count($product) < $product->inventory){
-                Cart::update($product,1);
+        $cart = Cart::instance('laralearn');
+
+        if ($cart->has($product)) {
+            if ($cart->count($product) < $product->inventory) {
+                $cart->update($product, 1);
             }
-        }else{
-            Cart::put([
+        } else {
+            $cart->put([
                 'quantity' => 1,
-            ],$product);
+            ], $product);
         }
 
         return redirect('/cart');
@@ -35,18 +42,20 @@ class CartController extends Controller
         $data = $request->validate([
             'id' => 'required',
             'quantity' => 'required',
-//            'cart' => 'required'
+            'cart' => 'required'
         ]);
 
-        $product = Cart::get($data['id'])['product'];
+        $cart = Cart::instance($data['cart']);
 
-        if($data['quantity'] > $product->inventory || $data['quantity'] < 0){
-            return \response(['status' => 'forbidden'],403);
+        $product = $cart->get($data['id'])['product'];
+
+        if ($data['quantity'] > $product->inventory || $data['quantity'] < 0) {
+            return \response(['status' => 'forbidden'], 403);
         }
 
-        if(Cart::has($data['id'])){
+        if ($cart->has($data['id'])) {
 
-            Cart::update($data['id'],[
+            $cart->update($data['id'], [
                 'quantity' => $data['quantity']
             ]);
 
@@ -55,6 +64,13 @@ class CartController extends Controller
             ]);
         }
 
-        return \response(['status' => 'error'],404);
+        return \response(['status' => 'error'], 404);
+    }
+
+    public function deleteFromCart($id)
+    {
+        Cart::delete($id);
+
+        return back();
     }
 }

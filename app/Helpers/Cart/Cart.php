@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static Cart put(array $value, Model $obj = null)
  * @method static Cart update(string|Model $key, mixed $options)
  * @method static int|mixed count(string|Model $key)
+ * @method static bool delete(string|Model $key)
+ * @method static Cart instance(string $name)
  */
 
 class Cart extends Facade

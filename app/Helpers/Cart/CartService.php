@@ -10,9 +10,11 @@ class CartService
 {
     protected $cart;
 
+    protected $name = 'default';
+
     public function __construct()
     {
-        $this->cart = session()->get('cart') ?? collect([]);
+        $this->cart = session()->get($this->name) ?? collect([]);
     }
 
     /**
@@ -36,7 +38,7 @@ class CartService
 
         $this->cart->put($value['id'],$value);
 
-        session()->put('cart',$this->cart);
+        session()->put($this->name,$this->cart);
         return $this;
     }
 
@@ -132,5 +134,42 @@ class CartService
         if(! $this->has($key)) return 0;
 
         return $this->get($key)['quantity'];
+    }
+
+    /**
+     * @param $key
+     * @return bool
+     */
+    public function delete($key)
+    {
+        if($this->has($key)){
+
+            $this->cart = $this->cart->filter(function ($item) use($key){
+                if($key instanceof Model){
+                    return ( $item['subject_id'] != $key->id ) && ( $item['subject_type'] != get_class($key) );
+                }
+
+                return $key != $item['id'];
+            });
+
+            session()->put($this->name,$this->cart);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $name
+     * @return $this
+     */
+    public function instance(string $name)
+    {
+        $this->cart = session()->get($name) ?? collect([]);
+
+        $this->name = $name;
+
+        return $this;
     }
 }
