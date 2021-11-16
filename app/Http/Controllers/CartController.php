@@ -15,11 +15,6 @@ class CartController extends Controller
         return view('home.cart');
     }
 
-    public function showCart2()
-    {
-        return view('home.cart2');
-    }
-
     public function addToCart(Product $product)
     {
         $cart = Cart::instance('laralearn');

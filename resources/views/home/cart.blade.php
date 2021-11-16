@@ -50,7 +50,7 @@
                         </thead>
                         <tbody>
 
-                        @foreach(Cart::all() as $cart)
+                        @foreach(Cart::instance('laralearn')->all() as $cart)
 
                             @php
                                 $product = $cart['product'];
@@ -72,7 +72,7 @@
                                 </td>
                                 <td class="text-right font-weight-semibold align-middle p-4">{{ $product->price }} تومان</td>
                                 <td class="align-middle p-4">
-                                    <select name="" onchange="changeQuantity(event,'{{ $cart['id'] }}')" class="form-control text-center">
+                                    <select name="" onchange="changeQuantity(event,'{{ $cart['id'] }}','laralearn')" class="form-control text-center">
                                         @foreach(range(1,$product->inventory) as $item)
                                             <option value="{{ $item }}" {{ $item == $cart['quantity'] ? 'selected' : '' }}>{{ $item }}</option>
                                         @endforeach
