@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function (){
     });
     Route::post('comments',[\App\Http\Controllers\HomeController::class,'comment'])->name('send.comment');
     Route::post('payment',[\App\Http\Controllers\PaymentController::class,'payment'])->name('cart.payment');
+    Route::get('payment/callback',[\App\Http\Controllers\PaymentController::class,'callback'])->name('payment.callback');
 });
 
 Route::get('auth/token',[\App\Http\Controllers\Auth\AuthTokenController::class,'getToken'])->name('2fa.token');

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static int|mixed count(string|Model $key)
  * @method static bool delete(string|Model $key)
  * @method static Cart instance(string $name)
+ * @method static Cart flush()
  */
 
 class Cart extends Facade

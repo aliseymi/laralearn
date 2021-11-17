@@ -41,7 +41,7 @@ class CartService
         $this->cart->put($value['id'],$value);
 
 //        session()->put($this->name,$this->cart);
-        Cookie::queue($this->name,$this->cart->toJson(),60 * 24 * 7);
+        $this->setCookie();
         return $this;
     }
 
@@ -156,7 +156,7 @@ class CartService
             });
 
 //            session()->put($this->name,$this->cart);
-            Cookie::queue($this->name,$this->cart->toJson(),60 * 24 * 7);
+            $this->setCookie();
 
             return true;
         }
@@ -176,5 +176,22 @@ class CartService
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function flush()
+    {
+        $this->cart = collect([]);
+//        session()->put($this->name,$this->cart);
+        $this->setCookie();
+
+        return $this;
+    }
+
+    protected function setCookie(): void
+    {
+        Cookie::queue($this->name, $this->cart->toJson(), 60 * 24 * 7);
     }
 }

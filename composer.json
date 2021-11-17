@@ -6,9 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "flotfeali/payping-client": "^0.0.1",
         "fruitcake/laravel-cors": "^2.0",
         "ghasedak/php": "^1.0",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^6.5.0|^7.0.1",
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/socialite": "^5.2",
