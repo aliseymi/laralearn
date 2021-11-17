@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "morilog/jalali": "^3.2",
+        "shetabit/payment": "^4.2",
         "uxweb/sweet-alert": "^2.0"
     },
     "require-dev": {

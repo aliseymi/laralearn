@@ -7,6 +7,9 @@ use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use PayPing\PayPingException;
+use Shetabit\Multipay\Exceptions\InvalidPaymentException;
+use Shetabit\Multipay\Invoice;
+use \Shetabit\Payment\Facade\Payment as ShetabitPayment;
 
 class PaymentController extends Controller
 {
@@ -31,32 +34,21 @@ class PaymentController extends Controller
 
             $order->products()->attach($orderItems);
 
-            $res_number = Str::random();
-            $token = config('services.payping.token');
-            $args = [
-                "amount" => 1000,
-                "payerName" => auth()->user()->name,
-                "returnUrl" => route('payment.callback'),
-                "clientRefId" => $res_number
-            ];
+            // Create new invoice.
+            $invoice = (new Invoice)->amount(1000);
 
-            $payment = new \PayPing\Payment($token);
+            return ShetabitPayment::callbackUrl(route('payment.callback'))->purchase($invoice, function($driver, $transactionId) use($order,$cart,$price,$invoice){
+                // Store transactionId in database as we need it to verify payment in the future.
+                $res_number = $invoice->getUuid();
 
-            try {
-                $payment->pay($args);
-            } catch (\Exception $e) {
-                throw $e;
-            }
+                $order->payments()->create([
+                    'price' => $price,
+                    'res_number' => $res_number
+                ]);
 
-            $order->payments()->create([
-                'price' => $price,
-                'res_number' => $res_number
-            ]);
+                $cart->flush();
 
-            $cart->flush();
-//echo $payment->getPayUrl();
-
-            return redirect($payment->getPayUrl());
+            })->pay()->render();
         }
 
         return back();
@@ -66,33 +58,27 @@ class PaymentController extends Controller
     {
         $payment = Payment::where('res_number',$request->clientrefid)->firstOrFail();
 
-        $token = config('services.payping.token');
-
-        $payping = new \PayPing\Payment($token);
-
         try {
-            if($payping->verify($request->refid, 1000)){
+            $receipt = ShetabitPayment::amount(1000)->transactionId($request->clientrefid)->verify();
 
-                $payment->update([
-                    'status' => 1
-                ]);
+            $payment->update([
+                'status' => 1
+            ]);
 
-                $payment->order()->update([
-                    'status' => 'paid'
-                ]);
+            $payment->order()->update([
+                'status' => 'paid'
+            ]);
 
-                alert()->success('پرداخت با موفقیت انجام شد');
-                return redirect('/products');
+            alert()->success('پرداخت با موفقیت انجام شد');
+            return redirect('/products');
 
-            }else{
-                alert()->error('پرداخت موفق نبود');
-                return redirect('/products');
-            }
-        }
-        catch (PayPingException $e) {
-            $errors = collect(json_decode($e->getMessage(), true));
-            alert()->error($errors->first());
-
+        } catch (InvalidPaymentException $exception) {
+            /**
+            when payment is not verified, it will throw an exception.
+            We can catch the exception to handle invalid payments.
+            getMessage method, returns a suitable message that can be used in user interface.
+             **/
+            alert()->error($exception->getMessage());
             return redirect('/products');
         }
     }
