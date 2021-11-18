@@ -19,3 +19,6 @@ Route::resource('comments',\App\Http\Controllers\Admin\CommentController::class)
 
 Route::resource('categories',\App\Http\Controllers\Admin\CategoryController::class)->except(['show']);
 Route::post('/attribute/values',[\App\Http\Controllers\Admin\AttributeController::class,'getValues']);
+
+Route::resource('orders',\App\Http\Controllers\Admin\OrderController::class)->except(['create','store']);
+Route::get('orders/{order}/payments',[\App\Http\Controllers\Admin\OrderController::class,'payments'])->name('orders.payments');

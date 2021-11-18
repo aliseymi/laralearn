@@ -36,6 +36,10 @@
                          @case('canceled')
                             لغو شده
                          @break
+
+                         @case('preparation')
+                            در حال پردازش
+                         @break
                      @endswitch
                  </td>
                  <td>{{ $order->tracking_serial ?? 'هنوز ثبت نشده' }}</td>

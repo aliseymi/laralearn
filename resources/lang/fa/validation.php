@@ -178,6 +178,7 @@ return [
         'label'                 => 'توضیح',
         'inventory'             => 'تعداد',
         'price'                 => 'قیمت',
-        'comment'               => 'نظر'
+        'comment'               => 'نظر',
+        'tracking_serial'       => 'کد پیگیری'
     ],
 ];
