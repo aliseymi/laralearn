@@ -24,7 +24,7 @@ class PaymentController extends Controller
             });
 
             $orderItems = $cartItems->mapWithKeys(function ($cart) {
-                return [$cart['product']->id => ['quantity' => $cart['quantity']]];
+                return [$cart['product']->id => ['quantity' => $cart['quantity'] , 'total_price' => $cart['product']->price * $cart['quantity']]];
             });
 
             $order = auth()->user()->orders()->create([
