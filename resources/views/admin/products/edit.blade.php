@@ -42,13 +42,18 @@
                         </div>
 
                         <div class="form-group col-lg-12">
-                            <input type="text" dir="ltr" class="form-control mb-2" value="{{ $product->image }}" disabled>
-                            <img class="w-25" src="{{ $product->image }}" alt="product_image">
-
-                            <hr>
                             <label for="inputName" class="col-sm-2 control-label">آپلود عکس شاخص</label>
 
-                            <input type="file" name="image" class="form-control">
+                            <div class="input-group">
+                                <input type="text" dir="ltr" readonly id="image_label" class="form-control" name="image"
+                                       aria-label="Image" aria-describedby="button-image" value="{{ $product->image }}">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="button-image">انتخاب</button>
+                                </div>
+                            </div>
+
+                            <img class="w-25 mt-2" src="{{ $product->image }}" alt="product_image">
+
                         </div>
 
                         <div class="form-group col-lg-12">
@@ -128,6 +133,21 @@
 
     @slot('script')
         <script>
+
+            document.addEventListener("DOMContentLoaded", function() {
+
+                document.getElementById('button-image').addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    window.open('/file-manager/fm-button', 'fm', 'width=1400,height=800');
+                });
+            });
+
+            // set file link
+            function fmSetLink($url) {
+                document.getElementById('image_label').value = $url;
+            }
+
             $('#categories').select2({
                 'placeholder': 'لطفا یک دسته بندی را انتخاب کنید',
                 dir: 'rtl'

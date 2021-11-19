@@ -50,7 +50,8 @@ class ProductController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string',
-            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+//            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+            'image' => 'required',
             'description' => 'required|string',
             'inventory' => 'required|numeric|min:0',
             'price' => 'required|numeric|min:0',
@@ -58,11 +59,11 @@ class ProductController extends Controller
             'attributes' => 'array'
         ]);
 
-        $file = $request->file('image');
-        $destinationPath = '/images/'.jdate()->getYear().'/'.jdate()->getMonth().'/'.jdate()->getDay().'/';
-        $file->move(public_path($destinationPath),$file->getClientOriginalName());
-
-        $data['image'] = $destinationPath . $file->getClientOriginalName();
+//        $file = $request->file('image');
+//        $destinationPath = '/images/'.jdate()->getYear().'/'.jdate()->getMonth().'/'.jdate()->getDay().'/';
+//        $file->move(public_path($destinationPath),$file->getClientOriginalName());
+//
+//        $data['image'] = $destinationPath . $file->getClientOriginalName();
 
         $product = auth()->user()->products()->create($data);
         $product->categories()->sync($data['categories']);
@@ -98,6 +99,7 @@ class ProductController extends Controller
     {
         $data = $request->validate([
             'title' => 'required|string',
+            'image' => 'required',
             'description' => 'required|string',
             'inventory' => 'required|numeric|min:0',
             'price' => 'required|numeric|min:0',
@@ -106,20 +108,20 @@ class ProductController extends Controller
         ]);
 
 
-        if($request->file('image')){
-            $request->validate([
-                'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
-            ]);
-
-            if(File::exists(public_path($product->image)))
-                File::delete(public_path($product->image));
-
-            $file = $request->file('image');
-            $destinationPath = '/images/'.jdate()->getYear().'/'.jdate()->getMonth().'/'.jdate()->getDay().'/';
-            $file->move(public_path($destinationPath),$file->getClientOriginalName());
-
-            $data['image'] = $destinationPath . $file->getClientOriginalName();
-        }
+//        if($request->file('image')){
+//            $request->validate([
+//                'image' => 'required|image|mimes:png,jpg,jpeg|max:2048'
+//            ]);
+//
+//            if(File::exists(public_path($product->image)))
+//                File::delete(public_path($product->image));
+//
+//            $file = $request->file('image');
+//            $destinationPath = '/images/'.jdate()->getYear().'/'.jdate()->getMonth().'/'.jdate()->getDay().'/';
+//            $file->move(public_path($destinationPath),$file->getClientOriginalName());
+//
+//            $data['image'] = $destinationPath . $file->getClientOriginalName();
+//        }
 
         $product->update($data);
         $product->categories()->sync($data['categories']);
