@@ -20,7 +20,7 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 <div id="attributes" data-attributes="{{ json_encode(\App\Models\Attribute::all()->pluck('name')) }}"></div>
-                <form class="form-horizontal" action="{{ route('admin.products.store') }}" method="POST">
+                <form class="form-horizontal" action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="card-body d-flex flex-wrap">
 
@@ -38,6 +38,12 @@
 
                             <input type="text" name="title" class="form-control"
                                    id="inputName" placeholder="نام محصول را وارد کنید" value="{{ old('title') }}">
+                        </div>
+
+                        <div class="form-group col-lg-12">
+                            <label for="inputName" class="col-sm-2 control-label">آپلود عکس شاخص</label>
+
+                            <input type="file" name="image" class="form-control">
                         </div>
 
                         <div class="form-group col-lg-12">

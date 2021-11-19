@@ -179,6 +179,7 @@ return [
         'inventory'             => 'تعداد',
         'price'                 => 'قیمت',
         'comment'               => 'نظر',
-        'tracking_serial'       => 'کد پیگیری'
+        'tracking_serial'       => 'کد پیگیری',
+        'image'                 => 'عکس'
     ],
 ];
