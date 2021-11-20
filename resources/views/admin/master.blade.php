@@ -47,7 +47,7 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-        <strong>CopyLeft &copy; 2018 <a href="http://github.com/aliseymi/">سیدعلی میرعربشاهی</a>.</strong>
+        <strong>CopyLeft &copy; 2021 <a href="http://github.com/aliseymi/">سیدعلی میرعربشاهی</a>.</strong>
     </footer>
 
     <!-- Control Sidebar -->

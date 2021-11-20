@@ -37,4 +37,9 @@ class Product extends Model
     {
         return $this->belongsToMany(Order::class);
     }
+
+    public function galleries()
+    {
+        return $this->hasMany(ProductGallery::class);
+    }
 }

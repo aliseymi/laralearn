@@ -95,10 +95,10 @@
     </div>
 
     @slot('script')
-        <script src="/js/ckeditor/ckeditor.js"></script>
+{{--        <script src="/js/ckeditor/ckeditor.js"></script>--}}
         <script>
 
-            CKEDITOR.replace('description', {filebrowserImageBrowseUrl: '/file-manager/ckeditor'});
+            // CKEDITOR.replace('description', {filebrowserImageBrowseUrl: '/file-manager/ckeditor'});
 
             document.addEventListener("DOMContentLoaded", function() {
 

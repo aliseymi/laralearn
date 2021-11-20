@@ -22,3 +22,6 @@ Route::post('/attribute/values',[\App\Http\Controllers\Admin\AttributeController
 
 Route::resource('orders',\App\Http\Controllers\Admin\OrderController::class)->except(['create','store']);
 Route::get('orders/{order}/payments',[\App\Http\Controllers\Admin\OrderController::class,'payments'])->name('orders.payments');
+
+Route::resource('products.gallery',\App\Http\Controllers\Admin\ProductGalleryController::class)->except(['show']);
+

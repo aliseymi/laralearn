@@ -57,6 +57,10 @@
                                     @can('edit-product')
                                             <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-sm btn-success ml-1"><i class="fa fa-edit"></i></a>
                                     @endcan
+
+                                    @can('show-product-gallery')
+                                            <a href="{{ route('admin.products.gallery.index', ['product' => $product->id]) }}" class="btn btn-sm btn-warning ml-1" data-toggle="tooltip" title="گالری تصاویر"><i class="fa fa-image"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
