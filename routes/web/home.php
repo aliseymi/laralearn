@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+//    return \Illuminate\Support\Facades\URL::temporarySignedRoute('download.file',now()->addSeconds(30),['user' => auth()->user()->id,'path' => 'files/WLE4hk.png']);
+
     return view('welcome');
 });
 
@@ -55,4 +57,8 @@ Route::post('cart/add/{product}',[\App\Http\Controllers\CartController::class,'a
 Route::get('cart',[\App\Http\Controllers\CartController::class,'showCart']);
 Route::patch('cart/quantity/change',[\App\Http\Controllers\CartController::class,'changeQuantity']);
 Route::delete('cart/delete/{cart}',[\App\Http\Controllers\CartController::class,'deleteFromCart'])->name('cart.destroy');
+
+Route::get('download/{user}/file',function ($file){
+    return \Illuminate\Support\Facades\Storage::download(request('path'));
+})->name('download.file')->middleware('signed');
 
