@@ -9,6 +9,10 @@ class ProductController extends Controller
 {
     public function index()
     {
+        $this->seo()
+            ->setTitle('همه محصولات')
+            ->setDescription('وبسایتی فروشگاهی شبیه به آمازون');
+
         $products = Product::latest()->paginate(12);
         return view('home.products',compact('products'));
     }

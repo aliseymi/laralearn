@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "alexusmai/laravel-file-manager": "^2.5",
+        "artesaos/seotools": "^0.20.2",
         "flotfeali/payping-client": "^0.0.1",
         "fruitcake/laravel-cors": "^2.0",
         "ghasedak/php": "^1.0",
