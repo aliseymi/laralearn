@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Discount\Entities\Discount;
 
 class Product extends Model
 {
@@ -41,5 +42,10 @@ class Product extends Model
     public function galleries()
     {
         return $this->hasMany(ProductGallery::class);
+    }
+
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class);
     }
 }

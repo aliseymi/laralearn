@@ -15,8 +15,26 @@ class CreateDiscountsTable extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-
+            $table->string('code');
+            $table->integer('percent');
+            $table->string('user');
             $table->timestamps();
+        });
+
+        Schema::create('discount_product', function (Blueprint $table) {
+            $table->unsignedBigInteger('discount_id');
+            $table->foreign('discount_id')->references('id')->on('discounts')->onDelete('cascade');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->primary(['discount_id','product_id']);
+        });
+
+        Schema::create('category_discount', function (Blueprint $table) {
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->unsignedBigInteger('discount_id');
+            $table->foreign('discount_id')->references('id')->on('discounts')->onDelete('cascade');
+            $table->primary(['discount_id','category_id']);
         });
     }
 
@@ -27,6 +45,8 @@ class CreateDiscountsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('discount_product');
+        Schema::dropIfExists('category_discount');
         Schema::dropIfExists('discounts');
     }
 }

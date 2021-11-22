@@ -5,16 +5,27 @@ namespace Modules\Discount\Http\Controllers\Admin;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Discount\Entities\Discount;
 
 class DiscountController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:show-discounts')->only(['index']);
+        $this->middleware('can:create-discount')->only(['create','store']);
+        $this->middleware('can:edit-discount')->only(['edit','update']);
+        $this->middleware('can:delete-discount')->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      * @return Renderable
      */
     public function index()
     {
-        return view('discount::index');
+        $discounts = Discount::latest()->paginate(20);
+
+        return view('discount::admin.all',compact('discounts'));
     }
 
     /**
