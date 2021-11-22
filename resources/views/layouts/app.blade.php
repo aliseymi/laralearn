@@ -7,7 +7,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {!! SEO::generate() !!}
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
     <!-- Scripts -->
 
 
