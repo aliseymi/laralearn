@@ -8,6 +8,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
@@ -90,6 +91,7 @@
 <!-- FastClick -->
 <script src="/plugins/fastclick/fastclick.js"></script>
 <script src="/plugins/select2/select2.full.js"></script>
+
 <script src="/js/sweetalert.js"></script>
 <script src="{{ asset('js/admin.js') }}"></script>
 @yield('script')

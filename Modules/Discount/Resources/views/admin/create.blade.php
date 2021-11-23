@@ -9,16 +9,26 @@
         <script>
 
             $('#users').select2({
-                'placeholder' : 'کاربر مورد نظر را انتخاب کنید'
+                'placeholder' : 'کاربر مورد نظر را انتخاب کنید',
+                dir: 'rtl'
             })
 
             $('#products').select2({
-                'placeholder' : 'محصول مورد نظر را انتخاب کنید'
+                'placeholder' : 'محصول مورد نظر را انتخاب کنید',
+                dir: 'rtl'
             })
 
             $('#categories').select2({
-                'placeholder' : 'دسته مورد نظر را انتخاب کنید'
+                'placeholder' : 'دسته مورد نظر را انتخاب کنید',
+                dir: 'rtl'
             })
+
+            $('#dtp').MdPersianDateTimePicker({
+                targetTextSelector: '#persianText',
+                targetDateSelector: '#persianDate',
+                textFormat: 'dddd dd MMMM yyyy',
+                enableTimePicker: true
+            });
         </script>
     @endslot
 
@@ -76,7 +86,14 @@
                         </div>
                         <div class="form-group col-lg-6">
                             <label for="inputEmail3" class="control-label">مهلت استفاده</label>
-                            <input type="datetime-local" name="expired_at" class="form-control" id="inputEmail3" placeholder="ملهت استفاده را وارد کنید" value="{{ old('expired_at') }}">
+{{--                            <input type="datetime-local" name="expired_at" class="form-control" id="inputEmail3" placeholder="ملهت استفاده را وارد کنید" value="{{ old('expired_at') }}">--}}
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="cursor: pointer;" id="dtp">📅</span>
+                                </div>
+                                <input type="text" placeholder="تاریخ انقضای کد تخفیف را انتخاب کنید" disabled id="persianText" class="form-control">
+                                <input type="text" readonly id="persianDate" class="form-control d-none" name="expired_at">
+                            </div>
                         </div>
                     </div>
                     <!-- /.card-body -->

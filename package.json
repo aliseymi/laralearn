@@ -23,5 +23,7 @@
         "sweetalert": "^2.1.2",
         "sweetalert2": "^11.1.9"
     },
-    "dependencies": {}
+    "dependencies": {
+        "md.bootstrappersiandatetimepicker": "^4.1.1"
+    }
 }

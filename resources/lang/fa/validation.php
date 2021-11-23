@@ -180,6 +180,8 @@ return [
         'price'                 => 'قیمت',
         'comment'               => 'نظر',
         'tracking_serial'       => 'کد پیگیری',
-        'image'                 => 'عکس'
+        'image'                 => 'عکس',
+        'expired_at'            => 'تاریخ انقضاء',
+        'today'                 => 'امروز'
     ],
 ];
