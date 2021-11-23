@@ -14,8 +14,7 @@ class AddExpiredAtFieldToDiscountsTable extends Migration
     public function up()
     {
         Schema::table('discounts', function (Blueprint $table) {
-            $table->timestamp('expired_at')->after('user')->nullable();
-            $table->text('user')->change();
+            $table->timestamp('expired_at')->nullable();
         });
     }
 
@@ -28,7 +27,6 @@ class AddExpiredAtFieldToDiscountsTable extends Migration
     {
         Schema::table('discounts', function (Blueprint $table) {
             $table->dropColumn('expired_at');
-            $table->string('user')->change();
         });
     }
 }

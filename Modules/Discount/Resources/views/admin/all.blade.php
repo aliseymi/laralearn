@@ -29,7 +29,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
-                    <table class="table table-hover">
+                    <table class="table table-hover text-center">
                         <tbody>
                         <tr>
                             <th>آی‌دی تخفیف</th>
@@ -54,10 +54,10 @@
                                 <td class="d-flex">
 {{--                                    // permissions--}}
                                     @can('delete-discount')
-                                        <form action="{{ route('admin.discount.destroy',['user' => $discount->id]) }}" method="POST">
+                                        <form action="{{ route('admin.discount.destroy',['discount' => $discount->id]) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="btn btn-sm btn-danger ml-1 deleteUser"><i class="fa fa-trash"></i></button>
+                                            <button type="button" class="btn btn-sm btn-danger ml-1 deleteDiscount"><i class="fa fa-trash"></i></button>
                                         </form>
                                     @endcan
 
@@ -80,5 +80,32 @@
             <!-- /.card -->
         </div>
     </div>
+
+
+    @slot('script')
+        <script>
+            $('.deleteDiscount').on('click',function (){
+                let deleteBtn = $(this);
+                Swal.fire({
+                    icon: 'warning',
+                    iconColor: '#ff1e00',
+                    title: 'آیا از حذف این کد تخفیف اطمینان دارید؟',
+                    text: 'پس از حذف،امکان بازگردانی عملیات وجود ندارد!',
+                    showConfirmButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'بله',
+                    confirmButtonColor: '#28a745',
+                    cancelButtonText: 'منصرف شدم',
+                    cancelButtonColor: '#ff2200',
+                    reverseButtons:true,
+                    focusCancel: true,
+                }).then((result) => {
+                    if(result.isConfirmed){
+                        deleteBtn.closest('form').submit();
+                    }
+                });
+            })
+        </script>
+    @endslot
 
 @endcomponent

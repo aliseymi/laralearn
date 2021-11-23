@@ -17,7 +17,6 @@ class CreateDiscountsTable extends Migration
             $table->id();
             $table->string('code');
             $table->integer('percent');
-            $table->string('user');
             $table->timestamps();
         });
 
