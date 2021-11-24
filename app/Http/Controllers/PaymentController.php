@@ -20,11 +20,18 @@ class PaymentController extends Controller
 
         if ($cartItems->count()) {
             $price = $cartItems->sum(function ($item) {
-                return $item['product']->price * $item['quantity'];
+                return $item['discount_percent'] == 0
+                    ? $item['product']->price * $item['quantity']
+                    : ($item['product']->price - ($item['product']->price * $item['discount_percent'])) * $item['quantity'];
             });
 
+
             $orderItems = $cartItems->mapWithKeys(function ($cart) {
-                return [$cart['product']->id => ['quantity' => $cart['quantity'] , 'total_price' => $cart['product']->price * $cart['quantity']]];
+                if(! $cart['discount_percent']){
+                    return [$cart['product']->id => ['quantity' => $cart['quantity'] , 'total_price' => $cart['product']->price * $cart['quantity']]];
+                }else{
+                    return [$cart['product']->id => ['quantity' => $cart['quantity'] , 'total_price' => (($cart['product']->price - ($cart['product']->price * $cart['discount_percent'])) * $cart['quantity'])]];
+                }
             });
 
             $order = auth()->user()->orders()->create([

@@ -64,7 +64,8 @@ class CartController extends Controller
 
     public function deleteFromCart($id)
     {
-        Cart::delete($id);
+        $cart = Cart::instance('laralearn');
+        $cart->delete($id);
 
         return back();
     }

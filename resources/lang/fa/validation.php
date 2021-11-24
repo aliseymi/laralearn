@@ -182,6 +182,7 @@ return [
         'tracking_serial'       => 'کد پیگیری',
         'image'                 => 'عکس',
         'expired_at'            => 'تاریخ انقضاء',
-        'today'                 => 'امروز'
+        'today'                 => 'امروز',
+        'discount'              => 'تخفیف'
     ],
 ];
