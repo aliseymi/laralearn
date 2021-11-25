@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Cart\Cart;
+use Modules\Cart\Helpers\Cart;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;

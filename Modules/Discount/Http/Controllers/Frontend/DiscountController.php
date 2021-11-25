@@ -2,7 +2,7 @@
 
 namespace Modules\Discount\Http\Controllers\Frontend;
 
-use App\Helpers\Cart\Cart;
+use Modules\Cart\Helpers\Cart;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
