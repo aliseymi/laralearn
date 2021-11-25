@@ -122,16 +122,30 @@
                 <!-- / Shopping cart table -->
                 <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
 
-                    <form action="{{ route('cart.discount.check') }}" method="POST" class="mt-3">
-                        @csrf
-                        <input type="hidden" name="cart" value="laralearn">
-                        <input type="text" class="form-control" placeholder="کد تخفیف دارید؟" name="discount">
-                        <button class="btn btn-success mt-2" type="submit">اعمال تخفیف</button>
+                    @if($discount = Cart::getDiscount())
+                        <div class="mt-4">
+                            <form action="/discount/delete" method="POST" id="delete-discount">
+                                @csrf
+                                @method('DELETE')
 
-                        @if($errors->has('discount'))
-                            <div class="text-danger text-sm mt-2">{{ $errors->first('discount') }}</div>
-                        @endif
-                    </form>
+                                <input type="hidden" name="cart" value="laralearn">
+                            </form>
+
+                            <span>کد تخفیف : <span class="text-success text-sm">{{ $discount->code }}</span><a href="#" onclick="event.preventDefault();document.getElementById('delete-discount').submit()" class="badge badge-danger mr-1 align-middle">حذف کد</a></span>
+                            <span class="d-block">درصد تخفیف : <span class="text-success text-sm">{{ $discount->percent }} درصد</span></span>
+                        </div>
+                    @else
+                        <form action="{{ route('cart.discount.check') }}" method="POST" class="mt-3">
+                            @csrf
+                            <input type="hidden" name="cart" value="laralearn">
+                            <input type="text" class="form-control" placeholder="کد تخفیف دارید؟" name="discount">
+                            <button class="btn btn-success mt-2" type="submit">اعمال تخفیف</button>
+
+                            @if($errors->has('discount'))
+                                <div class="text-danger text-sm mt-2">{{ $errors->first('discount') }}</div>
+                            @endif
+                        </form>
+                    @endif
 
                     <div class="mt-4"></div>
                     <div class="d-flex">

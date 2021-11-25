@@ -20,6 +20,7 @@ use phpDocumentor\Reflection\Types\Integer;
  * @method static Cart instance(string $name)
  * @method static Cart flush()
  * @method static void addDiscount(string|Integer $discount)
+ * @method static mixed getDiscount()
  */
 
 class Cart extends Facade

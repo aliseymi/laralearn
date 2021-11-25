@@ -13,4 +13,5 @@
 
 Route::prefix('discount')->group(function() {
     Route::post('/check', 'Frontend\DiscountController@check')->name('cart.discount.check');
+    Route::delete('/delete','Frontend\DiscountController@destroy');
 });
