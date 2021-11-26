@@ -1,7 +1,7 @@
 {
     "name": "Discount",
-    "alias": "discount",
-    "description": "",
+    "alias": "کد تخفیف",
+    "description": "ماژولی برای اعمال کد تخفیف در سبد خرید",
     "keywords": [],
     "priority": 0,
     "providers": [

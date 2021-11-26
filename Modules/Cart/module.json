@@ -1,7 +1,7 @@
 {
     "name": "Cart",
-    "alias": "cart",
-    "description": "",
+    "alias": "سبد خرید",
+    "description": "سبد خرید برای مدیریت محصولاتی که قصد خریداری آن ها را دارید",
     "keywords": [],
     "priority": 0,
     "providers": [

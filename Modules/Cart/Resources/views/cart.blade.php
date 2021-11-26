@@ -122,7 +122,7 @@
                 <!-- / Shopping cart table -->
                 <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
 
-                    @if(isActiveModule('Discount'))
+                    @if(Module::isEnable('Discount'))
                         @if($discount = Cart::getDiscount())
                             <div class="mt-4">
                                 <form action="/discount/delete" method="POST" id="delete-discount">
